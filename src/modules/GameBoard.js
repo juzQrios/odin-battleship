@@ -8,14 +8,18 @@ const GameBoard = (size) => {
 
   const cells = Array(size).fill(0).map(() => (Array(size).fill(0)));
   const ships = [];
+  const missedShots = [];
 
   const fillHorizontal = (length, startX, startY) => {
-    cells[startY] = cells[startY].fill(1, startX, startX + length);
+    // cells[startY] = cells[startY].fill(1, startX, startX + length);
+    for (let i = 0; i < length; i += 1) {
+      cells[startY][startX + i] = { shipIndex: ships.length - 1, posIndex: i };
+    }
   };
 
   const fillVertical = (length, startX, startY) => {
     for (let i = 0; i < length; i += 1) {
-      cells[startX + i][startY] = 1;
+      cells[startX + i][startY] = { shipIndex: ships.length - 1, posIndex: i };
     }
   };
 
@@ -29,7 +33,19 @@ const GameBoard = (size) => {
     }
   };
 
-  return { cells, placeShip };
+  const receiveAttack = (x, y) => {
+    if (cells[x][y] === 0) {
+      missedShots.push([x, y]);
+    } else {
+      const theCell = cells[x][y];
+      const hitShip = ships[theCell.shipIndex];
+      hitShip.hit(theCell.posIndex);
+    }
+  };
+
+  return {
+    cells, ships, missedShots, placeShip, receiveAttack,
+  };
 };
 
 export default GameBoard;
