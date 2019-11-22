@@ -1,5 +1,5 @@
 const Player = () => {
-  let enemyBoard = '';
+  let enemyBoard;
   const setEnemyBoard = (board) => {
     enemyBoard = board;
   };

@@ -1,5 +1,5 @@
-import GameBoard from '../modules/GameBoard';
 import Player from '../modules/Player';
+import GameBoard from '../modules/GameBoard';
 
 test('setting enemy board', () => {
   const board = GameBoard(5);
@@ -19,7 +19,7 @@ test('play function marks the enemy board cells as M if missed a shot', () => {
   expect(board.cells).toEqual([[0, 0, 0], [0, 'M', 0], [0, 0, 0]]);
 });
 
-test('play function marks enemy board cell as X if ', () => {
+test('play function marks enemy board cell as X if located a ship', () => {
   const board = GameBoard(3);
   const player = Player();
 
