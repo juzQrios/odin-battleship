@@ -73,13 +73,13 @@ test('If a ship is hit, should send the hit signal to that ship', () => {
   const board = GameBoard(4);
   board.placeShip(3, 'h', 1, 1);
   board.receiveAttack(1, 1);
-  expect(board.ships[0].hitPositions).toEqual([1, 0, 0]);
+  expect(board.ships[0].hitPositions).toEqual(['X', 0, 0]);
 
   // Vertically Placed ship
   const bigBoard = GameBoard(8);
   bigBoard.placeShip(5, 'v', 3, 2);
   bigBoard.receiveAttack(7, 2);
-  expect(bigBoard.ships[0].hitPositions).toEqual([0, 0, 0, 0, 1]);
+  expect(bigBoard.ships[0].hitPositions).toEqual([0, 0, 0, 0, 'X']);
 });
 
 test('Should be able to report whether or not all of their ships have been sunk', () => {

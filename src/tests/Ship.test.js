@@ -13,7 +13,7 @@ test('Newly created ship should not have any hit positions', () => {
 test('A function that takes a number and then marks that position as hit', () => {
   const newShip = Ship(5);
   newShip.hit(2);
-  expect(newShip.hitPositions).toEqual([0, 0, 1, 0, 0]);
+  expect(newShip.hitPositions).toEqual([0, 0, 'X', 0, 0]);
 });
 
 test('A ship with all positions hit should sink', () => {
