@@ -43,8 +43,10 @@ const GameBoard = (size) => {
     }
   };
 
+  const allSunk = () => ships.every((ship) => ship.isSunk());
+
   return {
-    cells, ships, missedShots, placeShip, receiveAttack,
+    cells, ships, missedShots, placeShip, receiveAttack, allSunk,
   };
 };
 

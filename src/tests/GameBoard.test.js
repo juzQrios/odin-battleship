@@ -88,3 +88,17 @@ test('If a ship is hit, should send the hit signal to that ship', () => {
   bigBoard.receiveAttack(7, 2);
   expect(bigBoard.ships[0].hitPositions).toEqual([0, 0, 0, 0, 1]);
 });
+
+test('Should be able to report whether or not all of their ships have been sunk', () => {
+  const board = GameBoard(4);
+  board.placeShip(3, 'h', 1, 1);
+  board.receiveAttack(1, 1);
+  board.receiveAttack(1, 2);
+  board.receiveAttack(1, 3);
+
+  board.placeShip(2, 'v', 0, 0);
+  board.receiveAttack(0, 0);
+  board.receiveAttack(1, 0);
+
+  expect(board.allSunk()).toBe(true);
+});
