@@ -1,4 +1,4 @@
-const Ship = (length) => {
+const Ship = (length, orientation, x, y) => {
   const hitPositions = Array(length).fill(0);
 
   const hit = (position) => {
@@ -8,7 +8,7 @@ const Ship = (length) => {
   const isSunk = () => hitPositions.every((position) => position === 1);
 
   return {
-    length, hitPositions, hit, isSunk,
+    length, hitPositions, hit, isSunk, orientation, x, y,
   };
 };
 

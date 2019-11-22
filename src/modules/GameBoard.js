@@ -10,36 +10,36 @@ const GameBoard = (size) => {
   const ships = [];
   const missedShots = [];
 
-  const fillHorizontal = (length, startX, startY) => {
-    // cells[startY] = cells[startY].fill(1, startX, startX + length);
-    for (let i = 0; i < length; i += 1) {
-      cells[startY][startX + i] = { shipIndex: ships.length - 1, posIndex: i };
+  const fillHorizontal = (ship) => {
+    for (let i = 0; i < ship.length; i += 1) {
+      cells[ship.y][ship.x + i] = ships.length;
     }
   };
 
-  const fillVertical = (length, startX, startY) => {
-    for (let i = 0; i < length; i += 1) {
-      cells[startX + i][startY] = { shipIndex: ships.length - 1, posIndex: i };
+  const fillVertical = (ship) => {
+    for (let i = 0; i < ship.length; i += 1) {
+      cells[ship.x + i][ship.y] = ships.length;
     }
   };
 
   const placeShip = (length, orientation, startX, startY) => {
-    const ship = Ship(length);
+    const ship = Ship(length, orientation, startX, startY);
     ships.push(ship);
-    if (orientation === ORIENTATION.HORIZONTAL) {
-      fillHorizontal(length, startX, startY);
+    if (ship.orientation === ORIENTATION.HORIZONTAL) {
+      fillHorizontal(ship);
     } else {
-      fillVertical(length, startX, startY);
+      fillVertical(ship);
     }
   };
 
   const receiveAttack = (x, y) => {
     if (cells[x][y] === 0) {
-      missedShots.push([x, y]);
+      cells[x][y] = 'M';
     } else {
-      const theCell = cells[x][y];
-      const hitShip = ships[theCell.shipIndex];
-      hitShip.hit(theCell.posIndex);
+      const i = parseInt(cells[x][y], 10) - 1;
+      const hitShip = ships[i];
+      const hitPos = hitShip.orientation === ORIENTATION.HORIZONTAL ? y - hitShip.y : x - hitShip.x;
+      hitShip.hit(hitPos);
     }
   };
 
