@@ -1,6 +1,37 @@
+body {
+  background-color: #3b3a3aee;
+  color: white;
+}
+.container {
+  padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
 
-h1 {
+.side {
+  padding: 20px;
   text-align: center;
-  font-family: monospace;
+}
+
+.side h2 {
   font-size: 2rem;
+  padding-bottom: 2rem;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  cursor: pointer;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-cell {
+  color: #f1e8e8;
+  font-size: .8rem;
 }
