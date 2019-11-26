@@ -1,6 +1,5 @@
 import Player from './Player';
 import GameBoard from './GameBoard';
-import DOM from './DOM';
 
 const Game = (() => {
   const player = Player();
@@ -9,29 +8,31 @@ const Game = (() => {
   const computerBoard = GameBoard(10);
   const playerBoard = GameBoard(10);
 
-  const getComputerBoard = () => computerBoard;
-  const getPlayerBoard = () => playerBoard;
-
-
   const initGame = () => {
     player.setEnemyBoard(computerBoard);
     computer.setEnemyBoard(playerBoard);
   };
 
-  const randomMove = () => [2, 3];
+  function getRndInteger(min, max) {
+    return [Math.floor(Math.random() * (max - min + 1)) + min,
+      Math.floor(Math.random() * (max - min + 1)) + min];
+  }
 
-  const playTurn = (coordX, coordY) => {
-    player.play(coordX, coordY);
-    computer.play(...randomMove());
-    DOM.renderBoards();
+  const startTurn = (coordX, coordY) => {
+    if (Game.computerBoard.validateCoordinates(coordX, coordY)) {
+      player.play(coordX, coordY);
+      computer.play(...getRndInteger(0, 9));
+    } else {
+      // TODO: handle invalid cells
+    }
   };
 
 
   return {
     initGame,
-    playTurn,
-    getPlayerBoard,
-    getComputerBoard,
+    startTurn,
+    playerBoard,
+    computerBoard,
   };
 })();
 

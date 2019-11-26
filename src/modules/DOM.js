@@ -3,15 +3,19 @@ import Game from './Game';
 const DOM = (() => {
   const drawBoard = (cells, divId) => {
     const board = document.getElementById(divId);
-    cells.forEach((row, i) => {
+    cells.forEach((row) => {
       const rowElement = document.createElement('div');
-      row.forEach((cell, j) => {
+      rowElement.classList.add('row');
+      row.forEach((cell) => {
         const cellElement = document.createElement('div');
-        cellElement.style.display = 'inline';
-        cellElement.innerHTML = cell;
+        cellElement.classList.add('cell');
+        cellElement.innerHTML = '&#11044;';
+        if (cell === 0) {
+          cellElement.classList.add('empty-cell');
+        }
         rowElement.appendChild(cellElement);
         if (divId === 'computer-board') {
-          cellElement.addEventListener('click', () => Game.playTurn(i, j));
+          cellElement.classList.add('enemy-cell');
         }
       });
       board.appendChild(rowElement);
@@ -25,11 +29,21 @@ const DOM = (() => {
 
   const renderBoards = () => {
     resetBoards();
-    drawBoard(Game.getPlayerBoard().cells, 'player-board');
-    drawBoard(Game.getComputerBoard().cells, 'computer-board');
+    drawBoard(Game.playerBoard.cells, 'player-board');
+    drawBoard(Game.computerBoard.cells, 'computer-board');
   };
 
-  return { renderBoards };
+  const getUserInput = async (cellClassName) => new Promise((resolve) => {
+    const cells = document.querySelectorAll(cellClassName);
+    cells.forEach((cell, index) => {
+      cell.addEventListener('click', () => {
+        resolve([Math.floor(index / 10), index % 10]);
+      });
+    });
+  });
+
+
+  return { renderBoards, getUserInput };
 })();
 
 export default DOM;

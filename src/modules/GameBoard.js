@@ -43,10 +43,22 @@ const GameBoard = (size) => {
     }
   };
 
+  const validate = (pointX, pointY, orientation) => {
+    const ref = orientation === ORIENTATION.HORIZONTAL ? pointY[1] : pointY[0];
+    for (let i = 0; i < ref; i += 1) {
+      if (cells[pointX[0]][i] !== 0) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const validateCoordinates = (x, y) => cells[x][y] === 0;
+
   const allSunk = () => ships.every((ship) => ship.isSunk());
 
   return {
-    cells, ships, missedShots, placeShip, receiveAttack, allSunk,
+    cells, ships, missedShots, placeShip, receiveAttack, allSunk, validate, validateCoordinates,
   };
 };
 
