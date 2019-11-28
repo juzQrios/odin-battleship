@@ -58,7 +58,6 @@ const gameLoop = async () => {
   await placeAllShips();
   while (1) {
     const clickedCoordinates = await DOM.getUserInput('.enemy-cell');
-    console.log(clickedCoordinates);
     Game.startTurn(...clickedCoordinates);
     DOM.renderBoards();
   }

@@ -12,7 +12,9 @@ const DOM = (() => {
         cellElement.innerHTML = '&#11044;';
         if (cell === 0) {
           cellElement.classList.add('empty-cell');
-        } else {
+        } else if (cell === 'M') {
+          cellElement.classList.add('missed-cell');
+        } else if (divId === 'player-board') {
           cellElement.classList.add('ship-cell');
         }
         rowElement.appendChild(cellElement);
@@ -38,7 +40,6 @@ const DOM = (() => {
   };
 
   const getUserInput = async (cellClassName) => new Promise((resolve) => {
-    console.log('here');
     const cells = document.querySelectorAll(cellClassName);
     cells.forEach((cell, index) => {
       cell.addEventListener('click', () => {
