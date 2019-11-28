@@ -1,6 +1,30 @@
 import Game from './Game';
 
 const DOM = (() => {
+  const cellStates = {
+    hit: 'hit',
+    ship: 'ship',
+    empty: 'empty',
+    hidden: 'hidden',
+    missed: 'missed',
+  };
+
+  const setCellClass = (cell, elm) => {
+    switch (cell) {
+      case 0:
+        elm.classList.add(cellStates.empty);
+        break;
+      case 'M':
+        elm.classList.add(cellStates.missed);
+        break;
+      case 'X':
+        elm.classList.add(cellStates.hit);
+        break;
+      default:
+        elm.classList.add(cellStates.ship);
+    }
+  };
+
   const drawBoard = (cells, divId) => {
     const board = document.getElementById(divId);
     cells.forEach((row) => {
@@ -10,13 +34,7 @@ const DOM = (() => {
         const cellElement = document.createElement('div');
         cellElement.classList.add('cell');
         cellElement.innerHTML = '&#11044;';
-        if (cell === 0) {
-          cellElement.classList.add('empty-cell');
-        } else if (cell === 'M') {
-          cellElement.classList.add('missed-cell');
-        } else if (divId === 'player-board') {
-          cellElement.classList.add('ship-cell');
-        }
+        setCellClass(cell, cellElement);
         rowElement.appendChild(cellElement);
         if (divId === 'computer-board') {
           cellElement.classList.add('enemy-cell');

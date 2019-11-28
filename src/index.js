@@ -102,9 +102,10 @@ gameLoop();
 //       }
 //     }
 //     console.log(startPoint, endPoint);
-//     // Game.computerBoard.placeShip(shipsLength[index], orientations[randOrientation], ...startPoint);
-//     if (Game.computerBoard.validate(startPoint, endPoint, orientations[randOrientation], shipsLength[index])) {
-//       Game.computerBoard.placeShip(shipsLength[index], orientations[randOrientation], ...startPoint);
+//   Game.computerBoard.placeShip(shipsLength[index], orientations[randOrientation], ...startPoint);
+// if (Game.computerBoard.validate(startPoint, endPoint, orientations[randOrientation],
+// shipsLength[index])) {
+// Game.computerBoard.placeShip(shipsLength[index], orientations[randOrientation], ...startPoint);
 //       failOn.push(rand);
 //     } else {
 //       index -= 1;
