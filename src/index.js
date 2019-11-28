@@ -16,16 +16,13 @@ const placeAllShips = async () => {
     const startPoint = await DOM.getUserInput('.player-cell');
     const endPoint = await DOM.getUserInput('.player-cell');
 
-    console.log("start point is: " + startPoint);
-    console.log("end Point is: " + endPoint);
-
     const orientation = startPoint[0] === endPoint[0] ? 'h' : 'v';
     if (Game.playerBoard.validate(startPoint, endPoint, orientation, shipsLength[index])) {
       Game.playerBoard.placeShip(shipsLength[index], orientation, ...startPoint);
       DOM.renderBoards();
     } else {
       // TODO: Inform user of invalid move
-      // index -= 1;
+      index -= 1;
     }
   }
 };

@@ -51,40 +51,22 @@ const GameBoard = (size) => {
   };
 
   const placementValidate = (pointX, pointY, orientation, shipLength) => {
-    const index = 0;
-    const fixedIndex = orientation === 'h' ? pointX[0] : index;
-    const variableIndex = orientation === 'h' ? index : pointX[0];
-    // fixed
-    // horizontal - 0
-    // vertical - 1
-
-    // variable
-    // horizontal - 1
-    // vertical - 0
     let result = true;
     if (orientation === ORIENTATION.VERTICAL) {
-      for (let x = pointX[0]; x < shipLength; x += 1) {
-        console.log(`From placement: fixed=${pointX[1]} : variable=${x}`);
-        console.log(`cell : ${cells[pointX[1]][x]}`);
-        result = result && cells[pointX[1]][x] === 0;
+      for (let x = pointX[0]; x < pointX[0] + shipLength; x += 1) {
+        result = result && (cells[x][pointX[1]] === 0);
       }
     } else {
-      for (let x = pointX[1]; x < shipLength; x += 1) {
-        console.log(`From placement: fixed=${pointX[0]} : variable=${x}`);
-        console.log(`cell : ${cells[pointX[0]][x]}`);
-        result = result && cells[pointX[0]][x] === 0;
+      for (let x = pointX[1]; x < pointX[1] + shipLength; x += 1) {
+        result = result && (cells[pointX[0]][x] === 0);
       }
     }
-    // for (let x = -1; x < shipLength - 1; x += 1) {
-    //   console.log(`From placement: fixed=${pointX[1]} : variable=${pointY[0] + x}`);
-    // }
-    console.log(result);
-    return true;
+    return result;
   };
 
   const validate = (pointX, pointY, orientation, shipLength) => {
-    console.log(pointX, pointY, orientation, shipLength);
-    return lengthValidate(pointX, pointY, orientation, shipLength) && placementValidate(pointX, pointY, orientation, shipLength);
+    return lengthValidate(pointX, pointY, orientation, shipLength)
+    && placementValidate(pointX, pointY, orientation, shipLength);
   };
 
 
