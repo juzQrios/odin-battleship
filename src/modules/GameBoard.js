@@ -64,18 +64,23 @@ const GameBoard = (size) => {
     return result;
   };
 
-  const validate = (pointX, pointY, orientation, shipLength) => {
-    return lengthValidate(pointX, pointY, orientation, shipLength)
-    && placementValidate(pointX, pointY, orientation, shipLength);
+  const orientationValidate = (pointX, pointY) => {
+    if (pointX[0] !== pointY[0] && pointX[1] !== pointY[1]) {
+      return false;
+    }
+    return true;
   };
 
-
-  const validateCoordinates = (x, y) => cells[x][y] === 0;
+  const validate = (pointX, pointY, orientation, shipLength) => (
+    lengthValidate(pointX, pointY, orientation, shipLength)
+    && placementValidate(pointX, pointY, orientation, shipLength)
+    && orientationValidate(pointX, pointY)
+  );
 
   const allSunk = () => ships.every((ship) => ship.isSunk());
 
   return {
-    cells, ships, missedShots, placeShip, receiveAttack, allSunk, validate, validateCoordinates,
+    cells, ships, missedShots, placeShip, receiveAttack, allSunk, validate,
   };
 };
 
