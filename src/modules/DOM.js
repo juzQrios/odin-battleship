@@ -46,8 +46,12 @@ const DOM = (() => {
     });
   });
 
+  const renderMessage = (message, className) => {
+    const ele = document.querySelector(`.${className}`);
+    ele.innerHTML = message;
+  };
 
-  return { renderBoards, getUserInput };
+  return { renderBoards, getUserInput, renderMessage };
 })();
 
 export default DOM;
