@@ -38,6 +38,7 @@ const DOM = (() => {
   };
 
   const getUserInput = async (cellClassName) => new Promise((resolve) => {
+    console.log('here');
     const cells = document.querySelectorAll(cellClassName);
     cells.forEach((cell, index) => {
       cell.addEventListener('click', () => {
