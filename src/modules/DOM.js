@@ -12,10 +12,14 @@ const DOM = (() => {
         cellElement.innerHTML = '&#11044;';
         if (cell === 0) {
           cellElement.classList.add('empty-cell');
+        } else {
+          cellElement.classList.add('ship-cell');
         }
         rowElement.appendChild(cellElement);
         if (divId === 'computer-board') {
           cellElement.classList.add('enemy-cell');
+        } else {
+          cellElement.classList.add('player-cell');
         }
       });
       board.appendChild(rowElement);

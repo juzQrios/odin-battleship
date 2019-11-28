@@ -35,3 +35,8 @@ body {
   color: #f1e8e8;
   font-size: .8rem;
 }
+
+.ship-cell {
+  color: red;
+  font-size: .8rem;
+}

@@ -19,7 +19,7 @@ test('fill board cells when horizontal line specified', () => {
 
   const bigBoard = GameBoard(8);
 
-  bigBoard.placeShip(3, 'h', 3, 2);
+  bigBoard.placeShip(3, 'h', 2, 3);
   expect(bigBoard.cells).toEqual([
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],

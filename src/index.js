@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 import './css/reset.css';
 import './css/main.css';
 
@@ -12,23 +13,20 @@ Game.initGame();
 const shipsLength = [2, 3, 3, 4, 5];
 const placeAllShips = async () => {
   for (let index = 0; index < shipsLength.length; index += 1) {
-    const startPoint = await DOM.getUserInput();
-    const endPoint =  await DOM.getUserInput();
+    const startPoint = await DOM.getUserInput('.player-cell');
+    const endPoint = await DOM.getUserInput('.player-cell');
 
     console.log("start point is: " + startPoint);
     console.log("end Point is: " + endPoint);
 
     const orientation = startPoint[0] === endPoint[0] ? 'h' : 'v';
-    Game.computerBoard.placeShip(shipsLength[index], orientation, ...startPoint);
-    DOM.renderBoards();
-    // if (Game.computerBoard.validate(i, j, orientation)) {
-    //   console.log('validated');
-    //   Game.computerBoard.placeShip(shipsLength[index], orientation, i[0], i[1]);
-    //   DOM.renderBoards();
-    // } else {
-    //   console.log('cells taken');
-    //   // TODO: show message that the cells are taken
-    // }
+    if (Game.playerBoard.validate(startPoint, endPoint, orientation, shipsLength[index])) {
+      Game.playerBoard.placeShip(shipsLength[index], orientation, ...startPoint);
+      DOM.renderBoards();
+    } else {
+      // TODO: Inform user of invalid move
+      // index -= 1;
+    }
   }
 };
 placeAllShips();
