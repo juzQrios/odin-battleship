@@ -1,6 +1,9 @@
 import Game from './Game';
 
 const DOM = (() => {
+  const playerScore = document.getElementById('player-score');
+  const computerScore = document.getElementById('computer-score');
+
   const cellStates = {
     hit: 'hit',
     ship: 'ship',
@@ -57,6 +60,11 @@ const DOM = (() => {
     drawBoard(Game.computerBoard.cells, 'computer-board');
   };
 
+  const updateScores = () => {
+    playerScore.innerHTML = Game.player.getScore();
+    computerScore.innerHTML = Game.computer.getScore();
+  };
+
   const getUserInput = async (cellClassName) => new Promise((resolve) => {
     const cells = document.querySelectorAll(cellClassName);
     cells.forEach((cell, index) => {
@@ -68,10 +76,22 @@ const DOM = (() => {
 
   const renderMessage = (message, className) => {
     const ele = document.querySelector(`.${className}`);
+    ele.style.display = 'block';
     ele.innerHTML = message;
   };
 
-  return { renderBoards, getUserInput, renderMessage };
+  const hideMessage = (className) => {
+    const ele = document.querySelector(`.${className}`);
+    ele.style.display = 'none';
+  };
+
+  return {
+    hideMessage,
+    updateScores,
+    renderBoards,
+    getUserInput,
+    renderMessage,
+  };
 })();
 
 export default DOM;

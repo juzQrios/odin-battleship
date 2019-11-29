@@ -2,32 +2,26 @@ import Player from './Player';
 import GameBoard from './GameBoard';
 
 const Game = (() => {
-  const player = Player();
-  const computer = Player();
+  const player = Player('Player');
+  const computer = Player('Computer');
 
   const computerBoard = GameBoard(10);
   const playerBoard = GameBoard(10);
 
   let winner;
-
-  const failOn = [];
+  const computerExcludeCoordinates = [];
 
   const initGame = () => {
     player.setEnemyBoard(computerBoard);
     computer.setEnemyBoard(playerBoard);
   };
 
-  // function getRndInteger(min, max) {
-  //   return [Math.floor(Math.random() * (max - min + 1)) + min,
-  //     Math.floor(Math.random() * (max - min + 1)) + min];
-  // }
-
-  function generateRandom(min, max) {
+  const generateRandom = (min, max) => {
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
-    const rand = failOn.includes(num) ? generateRandom(min, max) : num;
-    failOn.push(rand);
+    const rand = computerExcludeCoordinates.includes(num) ? generateRandom(min, max) : num;
+    computerExcludeCoordinates.push(rand);
     return rand;
-  }
+  };
 
   const startTurn = (coordX, coordY) => {
     player.play(coordX, coordY);
@@ -38,20 +32,24 @@ const Game = (() => {
 
   const setWinner = (winnerPlayer) => {
     winner = winnerPlayer;
+    winnerPlayer.increaseScore();
     return true;
   };
 
   const getWinner = () => winner;
 
-  const isFinished = () => (computerBoard.allSunk() && setWinner('player')) || (playerBoard.allSunk() && setWinner('computer'));
+  const isFinished = () => (computerBoard.allSunk() && setWinner(player))
+                        || (playerBoard.allSunk() && setWinner(computer));
 
   return {
+    player,
+    computer,
     initGame,
     startTurn,
+    getWinner,
+    isFinished,
     playerBoard,
     computerBoard,
-    isFinished,
-    getWinner,
   };
 })();
 

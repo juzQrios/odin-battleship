@@ -8,11 +8,11 @@ import Game from './modules/Game';
 const shipsLength = [2, 3, 3, 4, 5];
 
 // https://stackoverflow.com/a/48632068/8437607
-function generateRandom(min, max, failOn) {
+const generateRandom = (min, max, failOn) => {
   const fail = Array.isArray(failOn) ? failOn : [failOn];
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
   return failOn.includes(num) ? generateRandom(min, max, fail) : num;
-}
+};
 
 const placeRandShips = () => {
   const failOn = [];
@@ -47,7 +47,7 @@ const placeAllShips = async () => {
     }
     if (Game.playerBoard.validate(startPoint, endPoint, orientation, shipsLength[index])) {
       Game.playerBoard.placeShip(shipsLength[index], orientation, ...startPoint);
-      DOM.renderMessage('', 'player-error');
+      DOM.hideMessage('player-error');
       DOM.renderBoards();
     } else {
       const message = 'Invalid Move. Try Again.';
@@ -55,7 +55,8 @@ const placeAllShips = async () => {
       index -= 1;
     }
   }
-  const instruction = 'All ships Placed';
+  const instruction = 'Attack!';
+  DOM.updateScores();
   DOM.renderMessage(instruction, 'player-instruction');
   placeRandShips();
 };
@@ -69,7 +70,8 @@ const gameLoop = async () => {
     Game.startTurn(...clickedCoordinates);
     DOM.renderBoards();
   }
-  DOM.renderMessage(`Game won ${Game.getWinner()}`, 'player-instruction');
+  DOM.renderMessage(`${Game.getWinner().name} won!`, 'player-instruction');
+  DOM.updateScores();
 };
 
 DOM.renderBoards();
