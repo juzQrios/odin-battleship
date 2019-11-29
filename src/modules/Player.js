@@ -1,8 +1,15 @@
-const Player = () => {
+const Player = (name) => {
+  let score = 0;
   let enemyBoard;
   const setEnemyBoard = (board) => {
     enemyBoard = board;
   };
+
+  const increaseScore = () => {
+    score += 1;
+  };
+
+  const getScore = () => score;
 
   const getEnemyBoard = () => enemyBoard;
 
@@ -10,7 +17,14 @@ const Player = () => {
     getEnemyBoard().receiveAttack(coordX, coordY);
   };
 
-  return { play, setEnemyBoard, getEnemyBoard };
+  return {
+    name,
+    play,
+    getScore,
+    setEnemyBoard,
+    getEnemyBoard,
+    increaseScore,
+  }
 };
 
 export default Player;
