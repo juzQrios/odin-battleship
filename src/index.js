@@ -8,7 +8,6 @@ import Game from './modules/Game';
 const shipsLength = [2, 3, 3, 4, 5];
 
 const placeCompShips = () => {
-  // [startPoint, endPoint]
   const compShipPlacements = {
     0: [[1, 1], 'v'],
     1: [[4, 2], 'h'],
@@ -56,11 +55,12 @@ const placeAllShips = async () => {
 // start the game
 const gameLoop = async () => {
   await placeAllShips();
-  while (1) {
+  while (!Game.isFinished()) {
     const clickedCoordinates = await DOM.getUserInput('.enemy-cell');
     Game.startTurn(...clickedCoordinates);
     DOM.renderBoards();
   }
+  DOM.renderMessage(`Game won ${Game.getWinner()}`, 'player-instruction');
 };
 
 DOM.renderBoards();

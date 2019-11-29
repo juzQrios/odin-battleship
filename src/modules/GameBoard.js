@@ -40,6 +40,7 @@ const GameBoard = (size) => {
       const hitShip = ships[i];
       const hitPos = hitShip.orientation === ORIENTATION.HORIZONTAL ? y - hitShip.y : x - hitShip.x;
       hitShip.hit(hitPos);
+      cells[x][y] = 'X';
     }
   };
 
@@ -78,6 +79,25 @@ const GameBoard = (size) => {
   );
 
   const allSunk = () => ships.every((ship) => ship.isSunk());
+
+  // const generateRandom = (min, max, failOn) => {
+  //   const fail = Array.isArray(failOn) ? failOn : [failOn];
+  //   const num = Math.floor(Math.random() * (max - min + 1)) + min;
+  //   return failOn.includes(num) ? generateRandom(min, max, fail) : num;
+  // };
+
+  // const randomizeShips = () => {
+  //   const verticalExcluded = [];
+  //   const horizontalExcluded = [];
+  //   let excluded = [];
+  //   for (let i = 0; i < 5; i += 1) {
+  //     const randomOrientation = Math.floor(Math.random() * 2);
+  //     const orienation = randomOrientation === 0 ? 'h' : 'v';
+  //     // exclude points that wont fit the length for the next iteration based on next ship length
+  //     excluded = orienation === 'h' ? verticalExcluded : horizontalExcluded;
+  //     const startPoint = generateRandom(0, 100, excluded);
+  //   }
+  // };
 
   return {
     cells, ships, missedShots, placeShip, receiveAttack, allSunk, validate,
