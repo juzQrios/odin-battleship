@@ -8,6 +8,8 @@ const Game = (() => {
   const computerBoard = GameBoard(10);
   const playerBoard = GameBoard(10);
 
+  let winner;
+
   const failOn = [];
 
   const initGame = () => {
@@ -28,22 +30,28 @@ const Game = (() => {
   }
 
   const startTurn = (coordX, coordY) => {
-    if (Game.computerBoard.validateCoordinates(coordX, coordY)) {
-      player.play(coordX, coordY);
-      let rand = generateRandom(0, 99);
-      rand = [Math.floor(rand / 10), rand % 10];
-      computer.play(...rand);
-    } else {
-      // TODO: handle invalid cells
-    }
+    player.play(coordX, coordY);
+    let rand = generateRandom(0, 99);
+    rand = [Math.floor(rand / 10), rand % 10];
+    computer.play(...rand);
   };
 
+  const setWinner = (winnerPlayer) => {
+    winner = winnerPlayer;
+    return true;
+  };
+
+  const getWinner = () => winner;
+
+  const isFinished = () => (computerBoard.allSunk() && setWinner('player')) || (playerBoard.allSunk() && setWinner('computer'));
 
   return {
     initGame,
     startTurn,
     playerBoard,
     computerBoard,
+    isFinished,
+    getWinner,
   };
 })();
 
