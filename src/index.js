@@ -5,37 +5,14 @@ import './css/main.css';
 import DOM from './modules/DOM';
 import Game from './modules/Game';
 
+DOM.bindListeners();
+
 const shipsLength = [2, 3, 3, 4, 5];
 
-// https://stackoverflow.com/a/48632068/8437607
-const generateRandom = (min, max, failOn) => {
-  const fail = Array.isArray(failOn) ? failOn : [failOn];
-  const num = Math.floor(Math.random() * (max - min + 1)) + min;
-  return failOn.includes(num) ? generateRandom(min, max, fail) : num;
-};
 
-const placeRandShips = () => {
-  const failOn = [];
-  for (let index = 0; index < shipsLength.length; index += 1) {
-    const rand = generateRandom(0, 100, failOn);
-    const startPoint = [Math.floor(rand / 10), rand % 10];
-    const endPoint1 = [startPoint[0] + shipsLength[index] - 1, startPoint[1]];
-    const endPoint2 = [startPoint[0], startPoint[1] + shipsLength[index] - 1];
-    if (Game.computerBoard.validate(startPoint, endPoint1, 'v', shipsLength[index])) {
-      Game.computerBoard.placeShip(shipsLength[index], 'v', ...startPoint);
-      failOn.push(rand);
-    } else if (Game.computerBoard.validate(startPoint, endPoint2, 'h', shipsLength[index])) {
-      Game.computerBoard.placeShip(shipsLength[index], 'h', ...startPoint);
-      failOn.push(rand);
-    } else {
-      failOn.push(rand);
-      index -= 1;
-    }
-  }
-};
 const placeAllShips = async () => {
   for (let index = 0; index < shipsLength.length; index += 1) {
-    const instruction = `Place a ship of length ${shipsLength[index]}`;
+    const instruction = `Place a ship with <span class="ships-number">${shipsLength[index]}</span> cells length or <button class="btn" id="randomize-btn">Randomize Ships</button>`;
     DOM.renderMessage(instruction, 'player-instruction');
     let startPoint = await DOM.getUserInput('.player-cell');
     let endPoint = await DOM.getUserInput('.player-cell');
@@ -58,7 +35,7 @@ const placeAllShips = async () => {
   const instruction = 'Attack!';
   DOM.updateScores();
   DOM.renderMessage(instruction, 'player-instruction');
-  placeRandShips();
+  Game.randomizeShips(Game.computerBoard);
 };
 
 
@@ -70,7 +47,10 @@ const gameLoop = async () => {
     Game.startTurn(...clickedCoordinates);
     DOM.renderBoards();
   }
-  DOM.renderMessage(`${Game.getWinner().name} won!`, 'player-instruction');
+  DOM.renderMessage(
+    `${Game.getWinner().name} won! <button class="btn" id="play-again-btn">Play Again</button`,
+    'player-instruction',
+  );
   DOM.updateScores();
 };
 
