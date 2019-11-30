@@ -12,6 +12,22 @@ const DOM = (() => {
     missed: 'missed',
   };
 
+  const bindListeners = () => {
+    const buttonRoot = document.querySelector('.player-instruction');
+    buttonRoot.addEventListener('click', (event) => {
+      const targetElement = event.target;
+      if (targetElement.id === 'randomize-btn') {
+        // TODO:clear player board
+        // run the random ships function
+        Game.randomizeShips(Game.playerBoard);
+        console.log(Game.playerBoard.cells);
+        drawBoard();
+      } else if (targetElement.id === 'play-again-btn') {
+        // TODO: run game loop
+      }
+    }, true);
+  };
+
   const setCellClass = (cell, elm) => {
     switch (cell) {
       case 0:
@@ -91,6 +107,7 @@ const DOM = (() => {
     renderBoards,
     getUserInput,
     renderMessage,
+    bindListeners,
   };
 })();
 
