@@ -1,18 +1,16 @@
 import Player from './Player';
 import GameBoard from './GameBoard';
 
-// TODO: remove listeners from already clicked cells becausecauses bug
-
 const Game = (() => {
   const player = Player('Player');
   const computer = Player('Computer');
-
-  const computerBoard = GameBoard(10);
   const playerBoard = GameBoard(10);
+  const computerBoard = GameBoard(10);
 
-  let winner;
   const failOn = [];
   const validShipLengths = [2, 3, 3, 4, 5];
+  let winner;
+
 
   const initGame = () => {
     player.setEnemyBoard(computerBoard);
@@ -44,7 +42,13 @@ const Game = (() => {
   const isFinished = () => (computerBoard.allSunk() && setWinner(player))
                         || (playerBoard.allSunk() && setWinner(computer));
 
-  // https://stackoverflow.com/a/48632068/8437607
+
+  const resetGame = () => {
+    playerBoard.resetCells();
+    computerBoard.resetCells();
+    initGame();
+  };
+
   const generateRandoms = (min, max, excluded) => {
     const fail = Array.isArray(failOn) ? excluded : [excluded];
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -75,6 +79,7 @@ const Game = (() => {
     player,
     computer,
     initGame,
+    resetGame,
     startTurn,
     getWinner,
     isFinished,

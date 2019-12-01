@@ -22,6 +22,14 @@ const GameBoard = (size) => {
     }
   };
 
+  const resetCells = () => {
+    for (let i = 0; i < size; i += 1) {
+      for (let j = 0; j < size; j += 1) {
+        cells[i][j] = 0;
+      }
+    }
+  };
+
   const placeShip = (length, orientation, startX, startY) => {
     const ship = Ship(length, orientation, startX, startY);
     ships.push(ship);
@@ -35,7 +43,7 @@ const GameBoard = (size) => {
   const receiveAttack = (x, y) => {
     if (cells[x][y] === 0) {
       cells[x][y] = 'M';
-    } else {
+    } else if (typeof cells[x][y] === 'number') {
       const i = parseInt(cells[x][y], 10) - 1;
       const hitShip = ships[i];
       const hitPos = hitShip.orientation === ORIENTATION.HORIZONTAL ? y - hitShip.y : x - hitShip.x;
@@ -85,7 +93,7 @@ const GameBoard = (size) => {
   const allSunk = () => ships.every((ship) => ship.isSunk());
 
   return {
-    cells, ships, missedShots, placeShip, receiveAttack, allSunk, validate,
+    cells, ships, missedShots, placeShip, receiveAttack, allSunk, validate, resetCells,
   };
 };
 

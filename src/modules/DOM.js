@@ -1,4 +1,6 @@
 import Game from './Game';
+// eslint-disable-next-line import/no-cycle
+import GameLoop from './GameLoop';
 
 const DOM = (() => {
   const playerScore = document.getElementById('player-score');
@@ -12,21 +14,6 @@ const DOM = (() => {
     missed: 'missed',
   };
 
-  const bindListeners = () => {
-    const buttonRoot = document.querySelector('.player-instruction');
-    buttonRoot.addEventListener('click', (event) => {
-      const targetElement = event.target;
-      if (targetElement.id === 'randomize-btn') {
-        // TODO:clear player board
-        // run the random ships function
-        Game.randomizeShips(Game.playerBoard);
-        console.log(Game.playerBoard.cells);
-        drawBoard();
-      } else if (targetElement.id === 'play-again-btn') {
-        // TODO: run game loop
-      }
-    }, true);
-  };
 
   const setCellClass = (cell, elm) => {
     switch (cell) {
@@ -89,6 +76,23 @@ const DOM = (() => {
       });
     });
   });
+
+  const bindListeners = () => {
+    const buttonRoot = document.querySelector('.player-instruction');
+    buttonRoot.addEventListener('click', (event) => {
+      const targetElement = event.target;
+      if (targetElement.id === 'randomize-btn') {
+        // TODO:clear player board
+        // run the random ships function
+        Game.setAreShipsRandomized();
+        Game.randomizeShips(Game.playerBoard);
+      } else if (targetElement.id === 'play-again-btn') {
+        Game.resetGame();
+        renderBoards();
+        GameLoop.gameLoop();
+      }
+    }, true);
+  };
 
   const renderMessage = (message, className) => {
     const ele = document.querySelector(`.${className}`);
