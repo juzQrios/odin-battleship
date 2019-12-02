@@ -50,13 +50,13 @@ body {
   font-size: .8rem;
 }
 
-.empty {
+.empty, .hidden {
   color: #4b4a4a;
   font-size: .6rem;
 }
 
 .ship {
-  color: tomato;
+  color: #4B94F2;
   font-size: 1.3rem;
 }
 
@@ -65,7 +65,7 @@ body {
 }
 
 .hit {
-  color: indigo;
+  color: #F23545;
   font-size: 1.6rem;
 }
 
