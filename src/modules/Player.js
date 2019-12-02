@@ -25,7 +25,7 @@ const Player = (name) => {
     setEnemyBoard,
     getEnemyBoard,
     increaseScore,
-  }
+  };
 };
 
 export default Player;

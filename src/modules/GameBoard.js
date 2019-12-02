@@ -7,8 +7,7 @@ const GameBoard = (size) => {
   };
 
   const cells = Array(size).fill(0).map(() => (Array(size).fill(0)));
-  const ships = [];
-  const missedShots = [];
+  let ships = [];
 
   const fillHorizontal = (ship) => {
     for (let i = 0; i < ship.length; i += 1) {
@@ -22,7 +21,8 @@ const GameBoard = (size) => {
     }
   };
 
-  const resetCells = () => {
+  const resetBoard = () => {
+    ships = [];
     for (let i = 0; i < size; i += 1) {
       for (let j = 0; j < size; j += 1) {
         cells[i][j] = 0;
@@ -93,7 +93,13 @@ const GameBoard = (size) => {
   const allSunk = () => ships.every((ship) => ship.isSunk());
 
   return {
-    cells, ships, missedShots, placeShip, receiveAttack, allSunk, validate, resetCells,
+    cells,
+    ships,
+    placeShip,
+    receiveAttack,
+    allSunk,
+    validate,
+    resetBoard,
   };
 };
 

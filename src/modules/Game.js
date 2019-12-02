@@ -7,9 +7,9 @@ const Game = (() => {
   const playerBoard = GameBoard(10);
   const computerBoard = GameBoard(10);
 
-  const failOn = [];
-  const validShipLengths = [2, 3, 3, 4, 5];
   let winner;
+  const failOn = new Set([]);
+  const validShipLengths = [2, 3, 3, 4, 5];
 
 
   const initGame = () => {
@@ -19,8 +19,8 @@ const Game = (() => {
 
   const generateRandom = (min, max) => {
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
-    const rand = failOn.includes(num) ? generateRandom(min, max) : num;
-    failOn.push(rand);
+    const rand = failOn.has(num) ? generateRandom(min, max) : num;
+    failOn.add(rand);
     return rand;
   };
 
@@ -44,15 +44,15 @@ const Game = (() => {
 
 
   const resetGame = () => {
-    playerBoard.resetCells();
-    computerBoard.resetCells();
-    initGame();
+    playerBoard.resetBoard();
+    computerBoard.resetBoard();
+    failOn.clear();
   };
 
   const generateRandoms = (min, max, excluded) => {
-    const fail = Array.isArray(failOn) ? excluded : [excluded];
+    const fail = Array.isArray(excluded) ? excluded : [excluded];
     const num = Math.floor(Math.random() * (max - min + 1)) + min;
-    return failOn.includes(num) ? generateRandom(min, max, fail) : num;
+    return fail.includes(num) ? generateRandom(min, max, fail) : num;
   };
 
   const randomizeShips = (board) => {

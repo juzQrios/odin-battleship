@@ -82,8 +82,7 @@ const DOM = (() => {
     buttonRoot.addEventListener('click', (event) => {
       const targetElement = event.target;
       if (targetElement.id === 'randomize-btn') {
-        // TODO:clear player board
-        // run the random ships function
+        Game.resetGame();
         Game.setAreShipsRandomized();
         Game.randomizeShips(Game.playerBoard);
       } else if (targetElement.id === 'play-again-btn') {
