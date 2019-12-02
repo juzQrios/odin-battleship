@@ -70,7 +70,7 @@ const DOM = (() => {
     computerScore.innerHTML = Game.computer.getScore();
   };
 
-  const getUserInput = async (cellClassName) => new Promise(resolve => {
+  const getUserInput = async cellClassName => new Promise((resolve) => {
     const cells = document.querySelectorAll(cellClassName);
     cells.forEach((cell, index) => {
       cell.addEventListener('click', () => {
@@ -79,7 +79,7 @@ const DOM = (() => {
     });
   });
 
-  const bindListeners = () => new Promise(resolve => {
+  const bindListeners = () => new Promise((resolve) => {
     const buttonRoot = document.querySelector('.player-instruction');
     buttonRoot.addEventListener('click', (event) => {
       const targetElement = event.target;
