@@ -5,7 +5,7 @@ const Ship = (length, orientation, x, y) => {
     hitPositions[position] = 'X';
   };
 
-  const isSunk = () => hitPositions.every((position) => position === 'X');
+  const isSunk = () => hitPositions.every(position => position === 'X');
 
   return {
     length, hitPositions, hit, isSunk, orientation, x, y,

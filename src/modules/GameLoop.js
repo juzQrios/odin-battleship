@@ -9,7 +9,7 @@ const GameLoop = (() => {
 
   const placeAllShips = async () => {
     for (let index = 0; index < shipsLength.length; index += 1) {
-      const instruction = `Place a ship with <span class="ships-number">${shipsLength[index]}</span> cells length or <button class="btn" id="randomize-btn">Randomize Ships</button>`;
+      const instruction = `Place a ship with <span class="ships-number">${shipsLength[index]}</span> cells length`;
       DOM.renderMessage(instruction, 'player-instruction');
       let startPoint = await DOM.getUserInput('.player-cell');
       let endPoint = await DOM.getUserInput('.player-cell');
@@ -32,15 +32,25 @@ const GameLoop = (() => {
   };
 
   const gameLoop = async () => {
-    await placeAllShips();
+    const instruction = '<button class="btn" id="randomize-btn">Randomize Ships</button><button class="btn" id="start-btn">Start placing ships</button>';
+    DOM.renderMessage(instruction, 'player-instruction');
+    await DOM.bindListeners();
+    if (!Game.getPlayerShipsRandomized()) {
+      await placeAllShips();
+    }
     DOM.renderMessage('Attack', 'player-instruction');
     while (!Game.isFinished()) {
       const clickedCoordinates = await DOM.getUserInput('.enemy-cell');
-      Game.startTurn(...clickedCoordinates);
+      try {
+        Game.startTurn(...clickedCoordinates);
+        DOM.hideMessage('player-error');
+      } catch (error) {
+        DOM.renderMessage(error.message, 'player-error');
+      }
       DOM.renderBoards();
     }
     DOM.renderMessage(
-      `${Game.getWinner().name} won! <button class="btn" id="play-again-btn">Play Again</button`,
+      `${Game.getWinner().name} won! <button class="btn" id="play-again-btn">Play Again</button>`,
       'player-instruction',
     );
     DOM.updateScores();

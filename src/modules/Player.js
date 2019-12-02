@@ -15,7 +15,11 @@ const Player = (name) => {
   const getScore = () => score;
 
   const play = (coordX, coordY) => {
-    getEnemyBoard().receiveAttack(coordX, coordY);
+    try {
+      getEnemyBoard().receiveAttack(coordX, coordY);
+    } catch (error) {
+      throw new Error('Wrong move');
+    }
   };
 
   return {

@@ -43,6 +43,8 @@ const DOM = (() => {
         setCellClass(cell, cellElement);
         rowElement.appendChild(cellElement);
         if (divId === 'computer-board') {
+          cellElement.classList.remove(cellStates.ship);
+          cellElement.classList.add(cellStates.hidden);
           cellElement.classList.add('enemy-cell');
         } else {
           cellElement.classList.add('player-cell');
@@ -68,7 +70,7 @@ const DOM = (() => {
     computerScore.innerHTML = Game.computer.getScore();
   };
 
-  const getUserInput = async (cellClassName) => new Promise((resolve) => {
+  const getUserInput = async (cellClassName) => new Promise(resolve => {
     const cells = document.querySelectorAll(cellClassName);
     cells.forEach((cell, index) => {
       cell.addEventListener('click', () => {
@@ -77,21 +79,29 @@ const DOM = (() => {
     });
   });
 
-  const bindListeners = () => {
+  const bindListeners = () => new Promise(resolve => {
     const buttonRoot = document.querySelector('.player-instruction');
     buttonRoot.addEventListener('click', (event) => {
       const targetElement = event.target;
       if (targetElement.id === 'randomize-btn') {
         Game.resetGame();
-        Game.setAreShipsRandomized();
+        Game.setPlayerShipsRandomized();
         Game.randomizeShips(Game.playerBoard);
+        Game.randomizeShips(Game.computerBoard);
+        renderBoards();
+        resolve();
       } else if (targetElement.id === 'play-again-btn') {
         Game.resetGame();
         renderBoards();
         GameLoop.gameLoop();
+        resolve();
+      } else if (targetElement.id === 'start-btn') {
+        Game.resetGame();
+        renderBoards();
+        resolve();
       }
     }, true);
-  };
+  });
 
   const renderMessage = (message, className) => {
     const ele = document.querySelector(`.${className}`);

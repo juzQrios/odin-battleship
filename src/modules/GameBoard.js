@@ -49,6 +49,8 @@ const GameBoard = (size) => {
       const hitPos = hitShip.orientation === ORIENTATION.HORIZONTAL ? y - hitShip.y : x - hitShip.x;
       hitShip.hit(hitPos);
       cells[x][y] = 'X';
+    } else {
+      throw new Error('Wrong move');
     }
   };
 
@@ -80,7 +82,7 @@ const GameBoard = (size) => {
     return true;
   };
 
-  const boundValidate = (point) => point[0] < 10 && point[1] < 10;
+  const boundValidate = point => point[0] < 10 && point[1] < 10;
 
   const validate = (pointX, pointY, orientation, shipLength) => (
     lengthValidate(pointX, pointY, orientation, shipLength)
@@ -90,7 +92,7 @@ const GameBoard = (size) => {
   );
 
 
-  const allSunk = () => ships.every((ship) => ship.isSunk());
+  const allSunk = () => ships.every(ship => ship.isSunk());
 
   return {
     cells,

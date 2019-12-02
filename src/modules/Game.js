@@ -6,6 +6,7 @@ const Game = (() => {
   const computer = Player('Computer');
   const playerBoard = GameBoard(10);
   const computerBoard = GameBoard(10);
+  let playerShipsRandomized;
 
   let winner;
   const failOn = new Set([]);
@@ -25,10 +26,14 @@ const Game = (() => {
   };
 
   const startTurn = (coordX, coordY) => {
-    player.play(coordX, coordY);
-    let rand = generateRandom(0, 99);
-    rand = [Math.floor(rand / 10), rand % 10];
-    computer.play(...rand);
+    try {
+      player.play(coordX, coordY);
+      let rand = generateRandom(0, 99);
+      rand = [Math.floor(rand / 10), rand % 10];
+      computer.play(...rand);
+    } catch (error) {
+      throw new Error('Wrong move');
+    }
   };
 
   const setWinner = (winnerPlayer) => {
@@ -75,6 +80,12 @@ const Game = (() => {
     }
   };
 
+  const getPlayerShipsRandomized = () => playerShipsRandomized;
+
+  const setPlayerShipsRandomized = () => {
+    playerShipsRandomized = true;
+  };
+
   return {
     player,
     computer,
@@ -86,6 +97,8 @@ const Game = (() => {
     playerBoard,
     computerBoard,
     randomizeShips,
+    getPlayerShipsRandomized,
+    setPlayerShipsRandomized,
   };
 })();
 
