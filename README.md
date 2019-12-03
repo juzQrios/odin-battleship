@@ -1,23 +1,38 @@
-# odin-battleship
-Implementation of the classic game 'Battleship' in JavaScript using Test Driven Development methodology
+# Odin Battleship
 
-#### Installation:
+> Implementation of the classic game 'Battleship' in JavaScript using Test Driven Development methodology.
+
+![screenshot](./app_screenshot.png)
+
+
+## Built With
+
+- [webpack](https://webpack.js.org/)
+- [jest](https://handlebarsjs.com/)
+
+## Live Demo
+
+[Live Demo Link](https://raw.githack.com/juzQrios/odin-battleship/battleship/dist/index.html)
+
+
+## Getting Started
+
+Run these commands:
 ```
 git clone git@github.com:juzQrios/odin-battleship.git
 cd odin-battleship
 npm install
-
-# To build the app for production, run the following command:
 npm run build-prod
 ```
+Then Open `index.html` inside `/dist` folder in your browser.
 
-#### Tech Used
-- [webpack](https://webpack.js.org/)
-- [jest](https://handlebarsjs.com/)
+### Run tests
+```npm run test a```
 
 #### UI Design Inspiration
 [UI](https://dribbble.com/shots/2329326-Battleship-for-iOS)
 
-#### Contributers:
+## Authors
+
 - [Darshan](https://github.com/juzQrios)
 - [Muhammad](https://github.com/mosaaleb)
