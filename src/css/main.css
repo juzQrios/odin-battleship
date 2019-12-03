@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Exo:400,600&display=swap');
+
+body {
+  background-color: #383838;
+  color: #d6d6d6;
+  font-family: 'Exo', sans-serif;
+}
+.container {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.side {
+  padding: 1rem;
+  text-align: center;
+}
+
+
+.info {
+  display: flex;
+  justify-content: center;
+}
+
+.info * {
+  padding: 0 .4rem;;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.info h2 {
+  font-size: 2rem;
+}
+
+.infot h3 {
+  font-size: 1.8rem;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .8rem;
+}
+
+.empty, .hidden {
+  color: #4b4a4a;
+  font-size: .6rem;
+}
+
+.ship {
+  color: #4B94F2;
+  font-size: 1.3rem;
+}
+
+.missed {
+  color: #9f9d9b;
+}
+
+.hit {
+  color: #F23545;
+  font-size: 1.6rem;
+}
+
+.player-instruction, .player-error {
+  display: none;
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+}
+
+.player-instruction {
+  font-size: 1.3rem;
+  background-color: darkslateblue;
+  margin-bottom: 1rem;
+  padding: .5rem;
+}
+
+.ships-number {
+  font-weight: 600;
+  padding: .2rem;
+}
+
+.player-error {
+  font-size: 1.2rem;
+  background-color: black;
+  padding: 1rem;
+}
+
+.win {
+  font-size: 1.8rem;
+}
+
+.btn {
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-family: 'Exo', sans-serif;
+  margin-left: .4rem;
+  outline: none;
+  border: none;
+  border-radius: .2rem;
+  padding: .3rem .7rem;;
+}
+
+/* 
+#333334
+#8e8582
+#9f9d9b
+#cfcfce
+#f8f7f7
+#c79794 */
