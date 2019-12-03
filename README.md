@@ -2,8 +2,7 @@
 
 > Implementation of the classic game 'Battleship' in JavaScript using Test Driven Development methodology.
 
-![screenshot](./app_screenshot.png)
-
+![screenshot](./battleship-sc.png)
 
 ## Built With
 
@@ -14,22 +13,25 @@
 
 [Live Demo Link](https://raw.githack.com/juzQrios/odin-battleship/battleship/dist/index.html)
 
-
 ## Getting Started
 
 Run these commands:
-```
+
+```bash
 git clone git@github.com:juzQrios/odin-battleship.git
 cd odin-battleship
 npm install
 npm run build-prod
 ```
+
 Then Open `index.html` inside `/dist` folder in your browser.
 
 ### Run tests
+
 ```npm run test a```
 
 #### UI Design Inspiration
+
 [UI](https://dribbble.com/shots/2329326-Battleship-for-iOS)
 
 ## Authors
