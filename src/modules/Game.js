@@ -82,8 +82,8 @@ const Game = (() => {
 
   const getPlayerShipsRandomized = () => playerShipsRandomized;
 
-  const setPlayerShipsRandomized = () => {
-    playerShipsRandomized = true;
+  const setPlayerShipsRandomized = (bool) => {
+    playerShipsRandomized = bool;
   };
 
   return {

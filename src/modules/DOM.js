@@ -85,7 +85,7 @@ const DOM = (() => {
       const targetElement = event.target;
       if (targetElement.id === 'randomize-btn') {
         Game.resetGame();
-        Game.setPlayerShipsRandomized();
+        Game.setPlayerShipsRandomized(true);
         Game.randomizeShips(Game.playerBoard);
         Game.randomizeShips(Game.computerBoard);
         renderBoards();
@@ -96,8 +96,8 @@ const DOM = (() => {
         GameLoop.gameLoop();
         resolve();
       } else if (targetElement.id === 'start-btn') {
-        Game.resetGame();
         renderBoards();
+        Game.setPlayerShipsRandomized(false);
         resolve();
       }
     }, true);
